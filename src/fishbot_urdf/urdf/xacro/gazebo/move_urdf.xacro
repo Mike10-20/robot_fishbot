@@ -1,0 +1,32 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="gazebo_control_plugin">
+        <gazebo>
+            <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+                <update_rate>30</update_rate>
+
+                <!-- 车轮关节名，必须和你的 URDF 里定义的一致 -->
+                <left_joint>left_wheel_link2base_link</left_joint>
+                <right_joint>right_wheel_link2base_link</right_joint>
+
+                <!-- 运动学参数：轮距和轮径（注意是直径，不是半径） -->
+                <wheel_separation>0.2</wheel_separation>
+                <wheel_diameter>0.064</wheel_diameter>
+
+                <!-- 动力限制 -->
+                <max_wheel_torque>20</max_wheel_torque>
+                <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+                <!-- 输入输出话题 -->
+                <command_topic>cmd_vel</command_topic>
+                <odometry_topic>odom</odometry_topic>
+                <odometry_frame>odom</odometry_frame>
+                <robot_base_frame>base_footprint</robot_base_frame>
+
+                <!-- 发布里程计 TF -->
+                <publish_odom>true</publish_odom>
+                <publish_odom_tf>true</publish_odom_tf>
+                <publish_wheel_tf>true</publish_wheel_tf>//joint_state_publisher!
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+</robot>

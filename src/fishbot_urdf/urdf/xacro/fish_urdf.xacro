@@ -1,0 +1,26 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="fishbot">
+    <xacro:include filename="fish_base_urdf.xacro"/>
+    <xacro:include filename="camera_urdf.xacro"/>
+    <xacro:include filename="laser_urdf.xacro"/>
+    <xacro:include filename="wheel_urdf.xacro"/>
+    <xacro:include filename="caster_urdf.xacro"/>
+    <xacro:include filename="gazebo/move_urdf.xacro"/>
+    <xacro:include filename="gazebo/plugin_sensor_urdf.xacro"/>
+
+
+
+
+    <xacro:base_link radius="0.1" length="0.12"/>
+    <xacro:imu_link xyz="0 0 0.02"/>
+    <xacro:laser_link xyz="0 0 0.1"/>
+    <xacro:camera_link xyz="0.1 0 0.075"/>
+    <xacro:wheel_link wheel_name="left_wheel" xyz="0 0.1 -0.06"/>
+    <xacro:wheel_link wheel_name="right_wheel" xyz="0 -0.1 -0.06"/>
+    <xacro:caster_link caster_name="front_caster" xyz="0.08 0.0 -0.076"/>
+    <xacro:caster_link caster_name="back_caster" xyz="-0.08 0.0 -0.076"/>
+    <xacro:gazebo_control_plugin/>
+    <xacro:gazebo_sensor_plugin/>
+
+
+    
+</robot>

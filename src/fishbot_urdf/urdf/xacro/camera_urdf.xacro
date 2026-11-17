@@ -1,0 +1,39 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="inertia_urdf.xacro"/>
+    <xacro:macro name="camera_link" params="xyz">
+        <gazebo reference="camera_link">
+            <material>Gazebo/Green</material>
+        </gazebo>
+        <link name="camera_optical_link"/>
+        <link name="camera_link">
+            <visual>
+                <geometry>
+                    <box size="0.02 0.10 0.02"/>
+                </geometry>
+                <material name="green">
+                    <color rgba="0.0 1.0 0.0 0.8"/>                  
+                </material>
+            </visual>
+            <collision>
+                <geometry>
+                    <box size="0.02 0.10 0.02"/>
+                </geometry>
+                <material name="green">
+                    <color rgba="0.0 1.0 0.0 0.8"/>                  
+                </material>
+            </collision>
+            <xacro:box_inertia m="0.03" w="0.02" h="0.1" d="0.02"/>
+        </link>
+        <joint name="camera_optical_link2camera_link" type="fixed">
+            <parent link="camera_link"/>
+            <child link="camera_optical_link"/>
+            <origin rpy="${-pi/2} 0.0 ${-pi/2}"/>
+            
+        </joint>
+        <joint name="camera_link2base_link" type="fixed">
+            <parent link="base_link"/>
+            <child link="camera_link"/>
+            <origin xyz="${xyz}"/>         
+        </joint>
+    </xacro:macro>   
+</robot>

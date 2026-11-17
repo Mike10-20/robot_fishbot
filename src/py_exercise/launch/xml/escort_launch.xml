@@ -1,0 +1,48 @@
+<launch>
+    <arg name="name1" default="t2"/>
+    <arg name="name2" default="t3"/>
+    <arg name="name3" default="t4"/>
+
+    <node pkg="turtlesim" exec="turtlesim_node"/>
+    <node pkg="py_exercise" exec="spawn_py" name="spawn1">
+        <param name="name" value="$(var name1)"/>
+    </node>
+    <node pkg="py_exercise" exec="spawn_py" name="spawn2">
+        <param name="name" value="$(var name2)"/>
+    </node>
+    <node pkg="py_exercise" exec="spawn_py" name="spawn3">
+        <param name="name" value="$(var name3)"/>
+    </node>
+    
+
+    <node pkg="tf2_ros" exec="static_transform_publisher" args="--frame-id turtle1 --child-frame-id goal2 --x -3"/>
+    <node pkg="tf2_ros" exec="static_transform_publisher" args="--frame-id turtle1 --child-frame-id goal3 --x -1.5 --y 1.5"/>
+    <node pkg="tf2_ros" exec="static_transform_publisher" args="--frame-id turtle1 --child-frame-id goal4 --x -1.5 --y -1.5"/>
+
+    <node pkg="py_exercise" exec="dynamic_broadcaster_py" name="t2_bc">
+        <param name="child-frame-id" value="$(var name1)"/>
+    </node>
+    <node pkg="py_exercise" exec="dynamic_broadcaster_py" name="t3_bc">
+        <param name="child-frame-id" value="$(var name2)"/>
+    </node>
+    <node pkg="py_exercise" exec="dynamic_broadcaster_py" name="t4_bc">
+        <param name="child-frame-id" value="$(var name3)"/>
+    </node>
+    <node pkg="py_exercise" exec="dynamic_broadcaster_py" name="turtle1_bc">
+        <param name="child-frame-id" value="turtle1"/>
+    </node>
+    
+    <node pkg="py_exercise" exec="listener_py" name="t2_listener">
+        <param name="father" value="$(var name1)"/>
+        <param name="child" value="goal2"/>
+    </node>
+    <node pkg="py_exercise" exec="listener_py" name="t3_listener">
+        <param name="father" value="$(var name2)"/>
+        <param name="child" value="goal3"/>
+    </node>
+    <node pkg="py_exercise" exec="listener_py" name="t4_listener">
+        <param name="father" value="$(var name3)"/>
+        <param name="child" value="goal4"/>
+
+    </node>
+</launch>

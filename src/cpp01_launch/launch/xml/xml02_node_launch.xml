@@ -1,0 +1,7 @@
+<launch>
+    <node pkg="turtlesim" respawn="True" exec="turtlesim_node" exec_name="9999" name="t1" namespace="ns01" ros_args="-p background_b:=255" args="12">
+        <param name="background_r" value="255"/>
+        <remap from="/ns01/turtle1/cmd_vel" to="/cmd_vel"/>
+        <!-- <param from="$(find-pkg-share cpp01_launch)/config/turtlesim.yaml"/> -->
+    </node>
+</launch>

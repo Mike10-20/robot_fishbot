@@ -1,0 +1,59 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:property name="car_length" value="2"/>
+    <xacro:property name="car_width" value="1.2"/>
+    <xacro:property name="car_hight" value="0.7"/>
+    <xacro:property name="distance" value="0.15"/>
+    <xacro:property name="wheel_radius" value="0.25"/>
+    <xacro:property name="wheel_width" value="0.2"/>
+   
+    <!-- <xacro:property name="pi" value="3.1415926"/> -->
+    <material name="yellow">
+        <color rgba="0.8 0.6 0.0 0.5"/>
+    </material>
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 0.5"/>
+    </material>
+    <link name="base_footprint">
+        <visual>
+            <geometry>
+                <sphere radius="0.01"/>
+            </geometry>
+        </visual>      
+    </link>
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="${car_length} ${car_width} ${car_hight}"/>
+            </geometry>
+            <material name="yellow"/>
+        </visual>
+    </link>
+    <joint name="base_link2base_footprint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0.0 0.0 ${car_hight/2 + distance}"/>
+    </joint>
+
+    <xacro:macro name="func_wheel" params="name front_f left_f">
+        <link name="${name}">
+            <visual>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+                </geometry>
+                <origin rpy="${pi/2} 0.0 0.0"/>
+                <material name="black"/>
+            </visual>
+        </link>
+        <joint name="${name}2base_link" type="continuous">
+            <parent link="base_link"/>
+            <child link="${name}"/>
+            <origin xyz="${front_f*(car_length/2-0.3)} ${left_f*(car_width/2)} -${(distance+car_hight/2)-wheel_radius}"/>
+            <axis xyz="0.0 1.0 0.0"/>
+        </joint>
+    </xacro:macro>
+    <xacro:func_wheel name="wheel1" front_f="1" left_f="1"/>
+    <xacro:func_wheel name="wheel2" front_f="1" left_f="-1"/>
+    <xacro:func_wheel name="wheel3" front_f="-1" left_f="1"/>
+    <xacro:func_wheel name="wheel4" front_f="-1" left_f="-1"/>
+</robot>

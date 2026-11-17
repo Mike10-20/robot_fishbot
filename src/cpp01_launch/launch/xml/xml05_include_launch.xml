@@ -1,0 +1,5 @@
+<launch>
+    <let name="back_r" value="255"/>
+    <include file="$(find-pkg-share cpp01_launch)/launch/xml/xml03_param_launch.xml"/>
+    
+</launch>
